@@ -14,7 +14,7 @@ public struct MyJob : IJob
 
     public void Execute()
     {
-        for (int i = 0; i < 400000000; i++)
+        for (int i = 0; i < 400; i++)
         {
             result[0] = a + b;    
         }
@@ -29,6 +29,13 @@ public class CreateJobTest : MonoBehaviour
     {
         // Create a native array of a single float to store the result. This example waits for the job to complete for illustration purposes
 
+        
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         var beforeTime = DateTime.Now;
         var beforeTime1 = Time.realtimeSinceStartup;;
         NativeArray<float> result = new NativeArray<float>(1, Allocator.TempJob);
@@ -51,25 +58,17 @@ public class CreateJobTest : MonoBehaviour
         Debug.Log("Result:" + aPlusB);
         // Free the memory allocated by the result array
         result.Dispose();
-        Debug.Log("cost " + (DateTime.Now - beforeTime).TotalMilliseconds);
-        Debug.Log("cost " + (Time.realtimeSinceStartup - beforeTime1));
+        Debug.Log("cost job " + (Time.realtimeSinceStartup - beforeTime1));
         beforeTime = DateTime.Now;
         beforeTime1 = Time.realtimeSinceStartup;;
         int a = 10;
         int b = 10;
-        for (int i = 0; i < 400000000; i++)
+        for (int i = 0; i < 400; i++)
         {
-           int c = a + b;
+            int c = a + b;
         }
+       
         
-        Debug.Log("cost " + (DateTime.Now - beforeTime).TotalMilliseconds);
         Debug.Log("cost " + (Time.realtimeSinceStartup - beforeTime1));
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
