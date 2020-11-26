@@ -6,6 +6,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
+using Random = UnityEngine.Random;
 
 [BurstCompile]
 public struct MoveOneWorkJob : IJobParallelForTransform       //线程接口，执行execute方法
@@ -14,9 +15,9 @@ public struct MoveOneWorkJob : IJobParallelForTransform       //线程接口，�
 
     public void Execute(int index, TransformAccess transform)
     {
-        Vector3 pos = transform.localPosition; 
+        Vector3 pos = transform.position; 
 
-        transform.localPosition = pos + Vector3.one + Vector3.forward * index + Vector3.back/3*index;
+        transform.position = pos + Vector3.one + Vector3.forward * index + Vector3.back/3;
     }
 }
 
@@ -57,7 +58,7 @@ public class TestTransForm : MonoBehaviour
             var starTime = Time.realtimeSinceStartup;
             for(int i = 0;i < list.Count; i++)
             {
-                list[0].localPosition += (Vector3.one + Vector3.forward * 3 + Vector3.back/3);
+                list[0].position += (Vector3.one + Vector3.forward * i + Vector3.back/3);
             }
 
             var endTime = Time.realtimeSinceStartup;
